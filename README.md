@@ -1,4 +1,4 @@
-# Facemoji
+# Emoted
 
 Take a photo or pick one from your gallery, and every yellow face emoji becomes your face. Other emojis are left alone. The photo stays in your browser; nothing is uploaded.
 
