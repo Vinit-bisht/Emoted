@@ -1,4 +1,7 @@
-import { useRef, useState } from 'react'
+import { createContext, useContext, useRef, useState } from 'react'
+import CartoonMaker from './ai/CartoonMaker.jsx'
+
+const CartoonContext = createContext({})
 import { splitFaces, SAMPLE_FACES } from './emoji.js'
 
 const DEFAULT_TEXT =
@@ -39,6 +42,16 @@ function toSquare(file, size = 320) {
 }
 
 function Face({ photo, emoji, badge = false }) {
+  const cartoons = useContext(CartoonContext)
+  const cartoon = cartoons[emoji] || cartoons.base
+  if (cartoon) {
+    return (
+      <span className="face cartoon" role="img" aria-label={`Your cartoon as ${emoji}`}>
+        <img src={cartoon} alt="" />
+        {badge && !cartoons[emoji] && <span className="face-badge">{emoji}</span>}
+      </span>
+    )
+  }
   if (!photo) return <span className="emoji">{emoji}</span>
   return (
     <span className="face" role="img" aria-label={`Your face replacing ${emoji}`}>
@@ -52,6 +65,7 @@ export default function App() {
   const [photo, setPhoto] = useState(null)
   const [text, setText] = useState(DEFAULT_TEXT)
   const [error, setError] = useState('')
+  const [cartoons, setCartoons] = useState({})
   const cameraInput = useRef(null)
   const galleryInput = useRef(null)
 
@@ -71,6 +85,7 @@ export default function App() {
   const faceCount = parts.filter((p) => p.type === 'face').length
 
   return (
+    <CartoonContext.Provider value={cartoons}>
     <main className="page">
       <header className="hero">
         <p className="eyebrow">Facemoji</p>
@@ -116,6 +131,12 @@ export default function App() {
         />
       </header>
 
+      <CartoonMaker
+        cartoons={cartoons}
+        onCartoon={(emoji, url) => setCartoons((c) => ({ ...c, [emoji]: url }))}
+        onReset={() => setCartoons({})}
+      />
+
       <section className="card">
         <h2>Your faces</h2>
         <div className="grid">
@@ -141,7 +162,7 @@ export default function App() {
           <div className="field">
             <span>
               Preview
-              {photo
+              {photo || cartoons.base
                 ? ` · ${faceCount} face${faceCount === 1 ? '' : 's'} replaced`
                 : ' · add a photo to replace the faces'}
             </span>
@@ -159,8 +180,9 @@ export default function App() {
       </section>
 
       <footer className="footer">
-        Your photo never leaves your device. Open source under the MIT licence.
+        Your photo stays on your device, unless you use the cartoon maker, which sends it to Google with your own key. Open source under the MIT licence.
       </footer>
     </main>
+    </CartoonContext.Provider>
   )
 }
