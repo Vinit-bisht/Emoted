@@ -1,10 +1,10 @@
 :root {
-  --bg: #eff6ff;
-  --ink: #102a43;
-  --muted: #526d82;
+  --bg: #f0fdf4;
+  --ink: #143a24;
+  --muted: #4d6b59;
   --card: #ffffff;
-  --line: #c8dcf0;
-  --accent: #3b82f6;
+  --line: #c7e5d0;
+  --accent: #15803d;
   --accent-ink: #ffffff;
   --radius: 20px;
   font-family: ui-rounded, 'SF Pro Rounded', 'Nunito', system-ui, -apple-system,
@@ -188,7 +188,7 @@ textarea,
 
 textarea {
   resize: vertical;
-  background: #f8fbff;
+  background: #f8fdf9;
 }
 
 textarea:focus-visible {
@@ -236,6 +236,10 @@ textarea:focus-visible {
   align-items: center;
   font-size: 14px;
   color: var(--muted);
+}
+
+.check input {
+  accent-color: var(--accent);
 }
 
 .source {
