@@ -1,10 +1,10 @@
 :root {
-  --bg: #f0fdf4;
-  --ink: #143a24;
-  --muted: #4d6b59;
+  --bg: #fff7ed;
+  --ink: #431407;
+  --muted: #7c2d12;
   --card: #ffffff;
-  --line: #c7e5d0;
-  --accent: #15803d;
+  --line: #fed7aa;
+  --accent: #c2410c;
   --accent-ink: #ffffff;
   --radius: 20px;
   font-family: ui-rounded, 'SF Pro Rounded', 'Nunito', system-ui, -apple-system,
@@ -188,7 +188,7 @@ textarea,
 
 textarea {
   resize: vertical;
-  background: #f8fdf9;
+  background: #fffaf5;
 }
 
 textarea:focus-visible {
